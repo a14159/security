@@ -6,7 +6,7 @@ import javax.annotation.concurrent.Immutable;
 
 import java.util.Map;
 
-import static com.google.common.base.Charsets.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Immutable
 public final class SimpleCredential implements ICredential {
