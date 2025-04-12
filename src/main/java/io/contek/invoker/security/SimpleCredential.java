@@ -1,9 +1,10 @@
 package io.contek.invoker.security;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.io.BaseEncoding;
 
 import javax.annotation.concurrent.Immutable;
+
+import java.util.Map;
 
 import static com.google.common.base.Charsets.UTF_8;
 
@@ -36,7 +37,7 @@ public final class SimpleCredential implements ICredential {
   }
 
   @Override
-  public ImmutableMap<String, String> getProperties() {
+  public Map<String, String> getProperties() {
     return apiKey.getProperties();
   }
 

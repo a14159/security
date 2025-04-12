@@ -7,7 +7,7 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 
-import static com.google.common.base.Charsets.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Immutable
 public enum SecretKeyAlgorithm {

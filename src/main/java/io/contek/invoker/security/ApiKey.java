@@ -1,9 +1,8 @@
 package io.contek.invoker.security;
 
-import com.google.common.collect.ImmutableMap;
-
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,12 +11,12 @@ public final class ApiKey {
 
   private final String id;
   private final String secret;
-  private final ImmutableMap<String, String> properties;
+  private final Map<String, String> properties;
 
-  private ApiKey(String id, String secret, ImmutableMap<String, String> properties) {
+  private ApiKey(String id, String secret, Map<String, String> properties) {
     this.id = id;
     this.secret = secret;
-    this.properties = properties;
+    this.properties = Collections.unmodifiableMap(properties);
   }
 
   public static Builder newBuilder() {
@@ -32,7 +31,7 @@ public final class ApiKey {
     return secret;
   }
 
-  public ImmutableMap<String, String> getProperties() {
+  public Map<String, String> getProperties() {
     return properties;
   }
 
@@ -70,7 +69,7 @@ public final class ApiKey {
       if (secret == null) {
         throw new IllegalArgumentException("No API-Key secret specified");
       }
-      return new ApiKey(id, secret, ImmutableMap.copyOf(properties));
+      return new ApiKey(id, secret, properties);
     }
 
     private Builder() {}

@@ -1,8 +1,7 @@
 package io.contek.invoker.security;
 
-import com.google.common.collect.ImmutableMap;
-
 import javax.annotation.concurrent.Immutable;
+import java.util.Map;
 
 @Immutable
 public interface ICredential {
@@ -17,7 +16,7 @@ public interface ICredential {
 
   SecretKeyAlgorithm getAlgorithm();
 
-  ImmutableMap<String, String> getProperties();
+  Map<String, String> getProperties();
 
   String sign(String payload);
 
@@ -42,7 +41,7 @@ public interface ICredential {
     }
 
     @Override
-    public ImmutableMap<String, String> getProperties() {
+    public Map<String, String> getProperties() {
       throw new UnsupportedOperationException();
     }
 
