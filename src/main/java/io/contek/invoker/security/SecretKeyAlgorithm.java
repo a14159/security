@@ -18,9 +18,15 @@ public enum SecretKeyAlgorithm {
   ;
 
   private final String algorithmName;
+  private final Mac mac;
 
   SecretKeyAlgorithm(String algorithmName) {
     this.algorithmName = algorithmName;
+      try {
+        mac = Mac.getInstance(this.algorithmName);
+      } catch (NoSuchAlgorithmException e) {
+        throw new IllegalStateException(e);
+      }
   }
 
   public String getAlgorithmName() {
@@ -33,12 +39,9 @@ public enum SecretKeyAlgorithm {
 
   public Mac setupMac(byte[] secret) {
     try {
-      Mac mac = Mac.getInstance(algorithmName);
       Key spec = new SecretKeySpec(secret, algorithmName);
       mac.init(spec);
       return mac;
-    } catch (NoSuchAlgorithmException e) {
-      throw new IllegalStateException(e);
     } catch (InvalidKeyException e) {
       throw new IllegalArgumentException(e);
     }
