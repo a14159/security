@@ -1,9 +1,8 @@
 package io.contek.invoker.security;
 
-import com.google.common.io.BaseEncoding;
+import removing.dependencies.GuavaBaseEncoding;
 
 import javax.annotation.concurrent.Immutable;
-
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -13,9 +12,9 @@ public final class SimpleCredential implements ICredential {
 
   private final ApiKey apiKey;
   private final SecretKeyAlgorithm algorithm;
-  private final BaseEncoding encoding;
+  private final GuavaBaseEncoding encoding;
 
-  SimpleCredential(ApiKey apiKey, SecretKeyAlgorithm algorithm, BaseEncoding encoding) {
+  SimpleCredential(ApiKey apiKey, SecretKeyAlgorithm algorithm, GuavaBaseEncoding encoding) {
     this.apiKey = apiKey;
     this.algorithm = algorithm;
     this.encoding = encoding;

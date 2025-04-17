@@ -1,6 +1,6 @@
 package io.contek.invoker.security;
 
-import com.google.common.io.BaseEncoding;
+import removing.dependencies.GuavaBaseEncoding;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -8,9 +8,9 @@ import javax.annotation.concurrent.ThreadSafe;
 public abstract class BaseCredentialFactory implements ICredentialFactory {
 
   private final SecretKeyAlgorithm algorithm;
-  private final BaseEncoding encoding;
+  private final GuavaBaseEncoding encoding;
 
-  protected BaseCredentialFactory(SecretKeyAlgorithm algorithm, BaseEncoding encoding) {
+  protected BaseCredentialFactory(SecretKeyAlgorithm algorithm, GuavaBaseEncoding encoding) {
     this.algorithm = algorithm;
     this.encoding = encoding;
   }
