@@ -7,6 +7,6 @@ public class GuavaEscapers {
     }
 
     public static Escaper urlPathSegmentEscaper() {
-        return new EscaperDelegate(com.google.common.net.UrlEscapers.urlPathSegmentEscaper());
+        return new EscaperGuavaDelegate(com.google.common.net.UrlEscapers.urlPathSegmentEscaper());
     }
 }

@@ -1,5 +1,6 @@
 package io.contek.invoker.security;
 
+import removing.dependencies.Encoder;
 import removing.dependencies.GuavaBaseEncoding;
 
 import javax.annotation.concurrent.Immutable;
@@ -8,7 +9,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 @Immutable
 public final class SimpleCredentialFactory extends BaseCredentialFactory {
 
-  private SimpleCredentialFactory(SecretKeyAlgorithm algorithm, GuavaBaseEncoding encoding) {
+  private SimpleCredentialFactory(SecretKeyAlgorithm algorithm, Encoder encoding) {
     super(algorithm, encoding);
   }
 
@@ -20,14 +21,14 @@ public final class SimpleCredentialFactory extends BaseCredentialFactory {
   public static final class Builder {
 
     private SecretKeyAlgorithm algorithm;
-    private GuavaBaseEncoding encoding;
+    private Encoder encoding;
 
     public Builder setAlgorithm(SecretKeyAlgorithm algorithm) {
       this.algorithm = algorithm;
       return this;
     }
 
-    public Builder setEncoding(GuavaBaseEncoding encoding) {
+    public Builder setEncoding(Encoder encoding) {
       this.encoding = encoding;
       return this;
     }

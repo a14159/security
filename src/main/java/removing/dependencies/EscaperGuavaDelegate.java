@@ -1,10 +1,10 @@
 package removing.dependencies;
 
-public class EscaperDelegate implements Escaper {
+public class EscaperGuavaDelegate implements Escaper {
 
     private final com.google.common.escape.Escaper delegate;
 
-    public EscaperDelegate(com.google.common.escape.Escaper delegate) {
+    public EscaperGuavaDelegate(com.google.common.escape.Escaper delegate) {
         this.delegate = delegate;
     }
 
