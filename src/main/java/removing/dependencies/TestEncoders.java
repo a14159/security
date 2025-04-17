@@ -95,7 +95,7 @@ public class TestEncoders {
     }
 
     public static String generateRandomString(int size) {
-        final String from = "abcdefghij      123456789>><<||!!" + EscaperJDK.SPECIAL_CHARS;
+        final String from = "abcdefghij      123456789>><<||!!" + EscaperURLPath.SPECIAL_CHARS;
         final Random rnd = new Random();
 
         StringBuilder rez = new StringBuilder();

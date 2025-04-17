@@ -7,7 +7,7 @@ public class TestEscapers {
     public static void main(String[] args) {
         testUrlEscaper();
         for (int i = 0; i < 10; i++) {
-            testPerformance(new EscaperJDK(), "custom jdk impl");
+            testPerformance(new EscaperURLPath(), "custom jdk impl");
         }
         for (int i = 0; i < 10; i++) {
             testPerformance(GuavaEscapers.urlPathSegmentEscaper(), "guava impl");
@@ -31,14 +31,14 @@ public class TestEscapers {
         System.out.println("== TestEscapers Url escaper ==");
         String test = "racadabra 1234 cucu-Cucu  !>";
         System.out.println("Input string is: " + test);
-        EscaperJDK escaperJDK = new EscaperJDK();
+        EscaperURLPath escaperJDK = new EscaperURLPath();
         Escaper guavaEscaper = GuavaEscapers.urlPathSegmentEscaper();
-        System.out.println("EscaperJDK    : " + escaperJDK.escape(test));
+        System.out.println("EscaperURLPath    : " + escaperJDK.escape(test));
         System.out.println("GuavaEscapers : " + guavaEscaper.escape(test));
     }
 
     public static String generateRandomString(int size) {
-        final String from = "abcdefghij      123456789" + EscaperJDK.SPECIAL_CHARS;
+        final String from = "abcdefghij      123456789" + EscaperURLPath.SPECIAL_CHARS;
         final Random rnd = new Random();
 
         StringBuilder rez = new StringBuilder();

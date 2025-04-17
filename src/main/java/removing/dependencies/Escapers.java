@@ -2,7 +2,7 @@ package removing.dependencies;
 
 public class Escapers {
 
-    private static final Escaper JDK_ESCAPER = new EscaperJDK();
+    private static final Escaper JDK_ESCAPER = new EscaperURLPath();
 
     public static Escaper nullEscaper() {
         return Escaper.NULL;

@@ -1,6 +1,6 @@
 package removing.dependencies;
 
-public class EscaperJDK implements Escaper {
+public class EscaperURLPath implements Escaper {
 
     public static final String SPECIAL_CHARS = " %$&+,/:;=?@<>#%";
 
@@ -14,7 +14,7 @@ public class EscaperJDK implements Escaper {
         }
     }
 
-    public EscaperJDK() {
+    public EscaperURLPath() {
         initEncodeTable();
     }
 
