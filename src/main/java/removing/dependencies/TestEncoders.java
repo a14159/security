@@ -74,7 +74,7 @@ public class TestEncoders {
 
     private static void testBase32Hex() {
         System.out.println("== TestEncoders Base32Hex ==");
-        String test = "racadabra 1234 cucu-Cucu  !>";
+        String test = "bracadabra 1234 cucu-Cucu  !>";
         System.out.println("Input string is: " + test);
         Base32Hex base32Hex = new Base32Hex(true, true);
         GuavaBaseEncoding baseEncoding = GuavaBaseEncoding.base32Hex().lowerCase();

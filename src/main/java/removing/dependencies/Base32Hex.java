@@ -55,7 +55,10 @@ public final class Base32Hex implements Encoder {
             encoded.append(ALPHABET[(buffer << (5 - bitsLeft)) & 0x1F]);
         }
         if (padding) {
-            while (encoded.length() % 8 != 0) {
+            int currentLength = encoded.length();
+            int toAdd = (8 - currentLength % 8) % 8;
+            encoded.ensureCapacity(currentLength + toAdd);
+            while (currentLength++ % 8 != 0) {
                 encoded.append('=');
             }
         }

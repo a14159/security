@@ -33,8 +33,8 @@ public class TestEscapers {
         System.out.println("Input string is: " + test);
         EscaperURLPath escaperJDK = new EscaperURLPath();
         Escaper guavaEscaper = GuavaEscapers.urlPathSegmentEscaper();
-        System.out.println("EscaperURLPath    : " + escaperJDK.escape(test));
-        System.out.println("GuavaEscapers : " + guavaEscaper.escape(test));
+        System.out.println("EscaperURLPath : " + escaperJDK.escape(test));
+        System.out.println("GuavaEscapers :  " + guavaEscaper.escape(test));
     }
 
     public static String generateRandomString(int size) {
