@@ -1,7 +1,6 @@
 package io.contek.invoker.security;
 
 import removing.dependencies.Encoder;
-import removing.dependencies.GuavaBaseEncoding;
 
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;

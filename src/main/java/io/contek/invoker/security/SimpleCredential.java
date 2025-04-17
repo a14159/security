@@ -1,6 +1,5 @@
 package io.contek.invoker.security;
 
-import removing.dependencies.BaseEncoding;
 import removing.dependencies.Encoder;
 
 import javax.annotation.concurrent.Immutable;
