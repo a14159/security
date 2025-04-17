@@ -6,9 +6,11 @@ public class Base64 implements Encoder {
     private final java.util.Base64.Encoder delegateEncoder;
 
     private final boolean base64URL;
+    private final boolean padding;
 
     public Base64(boolean base64URL, boolean padding) {
         this.base64URL = base64URL;
+        this.padding = padding;
         if (base64URL) {
             delegateDecoder = java.util.Base64.getUrlDecoder();
             if (padding)
@@ -27,7 +29,10 @@ public class Base64 implements Encoder {
     }
 
     public Encoder omitPadding() {
-        return new Base32(this.base64URL, false);
+        if (this.padding)
+            return  new Base64(this.base64URL, false);
+
+        return this;
     }
 
     public String encode(byte[] base64) {
