@@ -1,4 +1,4 @@
-package removing.dependencies;
+package is.fm.util;
 
 import java.util.Random;
 
@@ -9,6 +9,7 @@ public class TestEncoders {
         testBase32();
         testBase16();
         testBase64();
+        testBase64Url();
 
         System.out.println("=== Base 16 performance testing ===");
         testPerformance(GuavaBaseEncoding.base16(), "base16 guava");
@@ -83,12 +84,23 @@ public class TestEncoders {
         System.out.println("Base32Hex decoded:      " + new String(base32Hex.decode(base32Hex.encode(test.getBytes()))));
     }
 
-    private static void testBase64() {
+    private static void testBase64Url() {
         System.out.println("== TestEncoders Base64 ==");
         String test = "bracadabra 1234 cucu-Cucu  !>";
         System.out.println("Input string is: " + test);
         Base64 base64 = new Base64(true, true);
         GuavaBaseEncoding baseEncoding = GuavaBaseEncoding.base64Url();
+        System.out.println("Base64 encoded:       " + base64.encode(test.getBytes()));
+        System.out.println("GuavaBase64 encoded:  " + baseEncoding.encode(test.getBytes()));
+        System.out.println("Base64 decoded:       " + new String(base64.decode(base64.encode(test.getBytes()))));
+    }
+
+    private static void testBase64() {
+        System.out.println("== TestEncoders Base64 ==");
+        String test = "bracadabra 1234 cucu-Cucu  !>";
+        System.out.println("Input string is: " + test);
+        Base64 base64 = new Base64(false, true);
+        GuavaBaseEncoding baseEncoding = GuavaBaseEncoding.base64();
         System.out.println("Base64 encoded:       " + base64.encode(test.getBytes()));
         System.out.println("GuavaBase64 encoded:  " + baseEncoding.encode(test.getBytes()));
         System.out.println("Base64 decoded:       " + new String(base64.decode(base64.encode(test.getBytes()))));

@@ -1,4 +1,4 @@
-package removing.dependencies;
+package is.fm.util;
 
 public class Escapers {
 

@@ -1,6 +1,6 @@
 package io.contek.invoker.security;
 
-import removing.dependencies.Encoder;
+import is.fm.util.Encoder;
 
 import javax.annotation.concurrent.ThreadSafe;
 

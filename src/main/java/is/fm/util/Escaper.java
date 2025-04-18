@@ -1,4 +1,4 @@
-package removing.dependencies;
+package is.fm.util;
 
 import java.util.Objects;
 
