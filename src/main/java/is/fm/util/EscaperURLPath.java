@@ -18,11 +18,16 @@ public class EscaperURLPath implements Escaper {
         }
     }
 
+    private static char toHex(int ch) {
+        return (char) (ch < 10 ? '0' + ch : 'A' + ch - 10);
+    }
+
     @Override
     public String escape(String input) {
 //        return URLEncoder.encode(arg, StandardCharsets.UTF_8); // this encored uses "+" for spaces
         StringBuilder resultStr = new StringBuilder(input.length() + 4);
         char[] charArray = input.toCharArray();
+        // noinspection all
         for (int i = 0, charArrayLength = charArray.length; i < charArrayLength; i++) {
             char ch = charArray[i];
             String encodedCh = encodeTable[ch];
@@ -33,9 +38,5 @@ public class EscaperURLPath implements Escaper {
             }
         }
         return resultStr.toString();
-    }
-
-    private static char toHex(int ch) {
-        return (char) (ch < 10 ? '0' + ch : 'A' + ch - 10);
     }
 }
