@@ -30,7 +30,7 @@ public class Base64 implements Encoder {
 
     public Encoder omitPadding() {
         if (this.padding)
-            return  new Base64(this.base64URL, false);
+            return new Base64(this.base64URL, false);
 
         return this;
     }

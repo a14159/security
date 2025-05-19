@@ -22,11 +22,11 @@ public enum SecretKeyAlgorithm {
 
   SecretKeyAlgorithm(String algorithmName) {
     this.algorithmName = algorithmName;
-      try {
-        mac = Mac.getInstance(this.algorithmName);
-      } catch (NoSuchAlgorithmException e) {
-        throw new IllegalStateException(e);
-      }
+    try {
+      mac = Mac.getInstance(this.algorithmName);
+    } catch (NoSuchAlgorithmException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   public String getAlgorithmName() {
