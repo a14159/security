@@ -39,6 +39,7 @@ public final class Base32Hex implements Encoder {
     }
 
     public String encode(byte[] data) {
+        final char[] alphabet = ALPHABET;
         StringBuilder encoded = new StringBuilder((data.length * 8 + 4) / 5);
         int buffer = 0, bitsLeft = 0;
         for (int i = 0, dataLength = data.length; i < dataLength; i++) {
@@ -47,12 +48,12 @@ public final class Base32Hex implements Encoder {
             buffer |= (b & 0xFF);
             bitsLeft += 8;
             while (bitsLeft >= 5) {
-                encoded.append(ALPHABET[(buffer >> (bitsLeft - 5)) & 0x1F]);
+                encoded.append(alphabet[(buffer >> (bitsLeft - 5)) & 0x1F]);
                 bitsLeft -= 5;
             }
         }
         if (bitsLeft > 0) {
-            encoded.append(ALPHABET[(buffer << (5 - bitsLeft)) & 0x1F]);
+            encoded.append(alphabet[(buffer << (5 - bitsLeft)) & 0x1F]);
         }
         if (padding) {
             int currentLength = encoded.length();
@@ -67,6 +68,7 @@ public final class Base32Hex implements Encoder {
     }
 
     public byte[] decode(String base32Hex) {
+        final int[] lookup = LOOKUP;
         int paddingCount = 0;
         if (padding) {
             for (int i = base32Hex.length() - 1; i >= 0 && base32Hex.charAt(i) == '='; i--) {
@@ -81,11 +83,11 @@ public final class Base32Hex implements Encoder {
             if (c == '=') {
                 break;
             }
-            if (LOOKUP[c] == -1) {
+            if (lookup[c] == -1) {
                 throw new IllegalArgumentException("Invalid character in Base32 Hex encoded string.");
             }
             buffer <<= 5;
-            buffer |= LOOKUP[c];
+            buffer |= lookup[c];
             bitsLeft += 5;
             if (bitsLeft >= 8) {
                 decoded[idx++] = (byte) ((buffer >> (bitsLeft - 8)) & 0xFF);

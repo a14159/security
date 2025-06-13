@@ -39,13 +39,14 @@ public final class Base16 implements Encoder {
 
     @Override
     public byte[] decode(String base16) {
+        final byte[] lookup = LOOKUP;
         char[] encoded = base16.toCharArray();
         final int size = encoded.length;
         byte[] decoded = new byte[size / 2];
         int baIdx = 0;
         for (int caIdx = 0; caIdx < size;) {
-            byte c0 = LOOKUP[encoded[caIdx++]];
-            byte c1 = LOOKUP[encoded[caIdx++]];
+            byte c0 = lookup[encoded[caIdx++]];
+            byte c1 = lookup[encoded[caIdx++]];
             decoded[baIdx++] = (byte) ((c0 << 4) | c1);
         }
         return decoded;
@@ -53,12 +54,13 @@ public final class Base16 implements Encoder {
 
     @Override
     public String encode(byte[] bytes) {
+        final char[] alphabet = ALPHABET;
         final int size = bytes.length;
         byte[] encoded = new byte[size * 2];
         int caIdx = 0;
         for (int baIdx = 0; baIdx < size; baIdx++) {
-            encoded[caIdx++] = (byte) ALPHABET[((bytes[baIdx] >> 4) & 0x0F)];
-            encoded[caIdx++] = (byte) ALPHABET[((bytes[baIdx]) & 0x0F)];
+            encoded[caIdx++] = (byte) alphabet[((bytes[baIdx] >> 4) & 0x0F)];
+            encoded[caIdx++] = (byte) alphabet[((bytes[baIdx]) & 0x0F)];
         }
         return new String(encoded);
     }

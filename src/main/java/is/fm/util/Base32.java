@@ -39,6 +39,7 @@ public final class Base32 implements Encoder {
     }
 
     public String encode(byte[] data) {
+        final char[] alphabet = ALPHABET;
         StringBuilder encoded = new StringBuilder((data.length * 8 + 4) / 5);
         int buffer = 0, bitsLeft = 0;
         for (int i = 0, dataLength = data.length; i < dataLength; i++) {
@@ -47,12 +48,12 @@ public final class Base32 implements Encoder {
             buffer |= (b & 0xFF);
             bitsLeft += 8;
             while (bitsLeft >= 5) {
-                encoded.append(ALPHABET[(buffer >> (bitsLeft - 5)) & 0x1F]);
+                encoded.append(alphabet[(buffer >> (bitsLeft - 5)) & 0x1F]);
                 bitsLeft -= 5;
             }
         }
         if (bitsLeft > 0) {
-            encoded.append(ALPHABET[(buffer << (5 - bitsLeft)) & 0x1F]);
+            encoded.append(alphabet[(buffer << (5 - bitsLeft)) & 0x1F]);
         }
         if (padding) {
             int currentLength = encoded.length();
@@ -66,6 +67,7 @@ public final class Base32 implements Encoder {
     }
 
     public byte[] decode(String base32) {
+        final int[] lookup = LOOKUP;
         int paddingCount = 0;
         for (int i = base32.length() - 1; base32.charAt(i) == '='; i--) {
             paddingCount++;
@@ -75,7 +77,7 @@ public final class Base32 implements Encoder {
         for (char c : base32.toCharArray()) {
             if (c == '=') break;
             buffer <<= 5;
-            buffer |= LOOKUP[c];
+            buffer |= lookup[c];
             bitsLeft += 5;
             if (bitsLeft >= 8) {
                 decoded[index++] = (byte) ((buffer >> (bitsLeft - 8)) & 0xFF);
