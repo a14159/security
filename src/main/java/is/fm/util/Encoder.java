@@ -6,7 +6,7 @@ public interface Encoder {
 
     Encoder omitPadding();
 
-    byte[] decode(String base16);
+    byte[] decode(String s);
 
     String encode(byte[] bytes);
 }

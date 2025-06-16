@@ -1,7 +1,10 @@
 package is.fm.util;
 
 
-public class BaseEncoding {
+public final class BaseEncoding {
+
+    private BaseEncoding() {
+    }
 
     public static Encoder base16() {
         return new Base16(false);
