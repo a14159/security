@@ -4,10 +4,22 @@ import java.util.Arrays;
 
 public final class Base32 implements Encoder {
 
-    private static final String BASE32_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+    private static final char[] BASE32_ALPHABET_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
+    private static final char[] BASE32_ALPHABET_LOWER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toLowerCase().toCharArray();
 
-    private final char[] ALPHABET;
-    private final int[] LOOKUP = new int[256];
+    private static final  int[] LOOKUP_UPPER = new int[256];
+    private static final  int[] LOOKUP_LOWER = new int[256];
+    static {
+        Arrays.fill(LOOKUP_UPPER, -1);
+        Arrays.fill(LOOKUP_LOWER, -1);
+        for (int i = 0; i < BASE32_ALPHABET_UPPER.length; i++) {
+            LOOKUP_UPPER[BASE32_ALPHABET_UPPER[i]] = i;
+            LOOKUP_LOWER[BASE32_ALPHABET_LOWER[i]] = i;
+        }
+    }
+
+    private final char[] alphabet;
+    private final int[] lookup;
 
     private final boolean padding;
     private final boolean lowerCase;
@@ -15,12 +27,13 @@ public final class Base32 implements Encoder {
     public Base32(boolean lowerCase, boolean padding) {
         this.lowerCase = lowerCase;
         if (lowerCase) {
-            ALPHABET = BASE32_ALPHABET.toLowerCase().toCharArray();
+            alphabet = BASE32_ALPHABET_LOWER;
+            lookup = LOOKUP_LOWER;
         } else {
-            ALPHABET = BASE32_ALPHABET.toCharArray();
+            alphabet = BASE32_ALPHABET_UPPER;
+            lookup = LOOKUP_UPPER;
         }
         this.padding = padding;
-        initLookup();
     }
 
     public Encoder lowerCase() {
@@ -31,15 +44,8 @@ public final class Base32 implements Encoder {
         return new Base32(this.lowerCase, false);
     }
 
-    private void initLookup() {
-        Arrays.fill(LOOKUP, -1);
-        for (int i = 0; i < ALPHABET.length; i++) {
-            LOOKUP[ALPHABET[i]] = i;
-        }
-    }
-
     public String encode(byte[] data) {
-        final char[] alphabet = ALPHABET;
+        final char[] alphabet = this.alphabet;
         StringBuilder encoded = new StringBuilder((data.length * 8 + 4) / 5);
         int buffer = 0, bitsLeft = 0;
         for (int i = 0, dataLength = data.length; i < dataLength; i++) {
@@ -67,7 +73,7 @@ public final class Base32 implements Encoder {
     }
 
     public byte[] decode(String base32) {
-        final int[] lookup = LOOKUP;
+        final int[] lookup = this.lookup;
         int paddingCount = 0;
         for (int i = base32.length() - 1; base32.charAt(i) == '='; i--) {
             paddingCount++;

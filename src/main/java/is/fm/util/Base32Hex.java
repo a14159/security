@@ -6,8 +6,23 @@ public final class Base32Hex implements Encoder {
 
     private static final String BASE32_HEX_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
 
-    private final char[] ALPHABET;
-    private final int[] LOOKUP = new int[128];
+    private static final char[] ALPHABET_UPPER = BASE32_HEX_ALPHABET.toCharArray();
+    private static final char[] ALPHABET_LOWER = BASE32_HEX_ALPHABET.toLowerCase().toCharArray();
+
+    private static final int[] LOOKUP_UPPER = new int[128];
+    private static final int[] LOOKUP_LOWER = new int[128];
+
+    static {
+        Arrays.fill(LOOKUP_UPPER, -1);
+        Arrays.fill(LOOKUP_LOWER, -1);
+        for (int i = 0; i < BASE32_HEX_ALPHABET.length(); i++) {
+            LOOKUP_UPPER[ALPHABET_UPPER[i]] = i;
+            LOOKUP_LOWER[ALPHABET_LOWER[i]] = i;
+        }
+    }
+
+    private final char[] alphabet;
+    private final int[] lookup;
 
     private final boolean padding;
     private final boolean lowerCase;
@@ -15,11 +30,12 @@ public final class Base32Hex implements Encoder {
     public Base32Hex(boolean lowerCase, boolean padding) {
         this.lowerCase = lowerCase;
         if (lowerCase) {
-            ALPHABET = BASE32_HEX_ALPHABET.toLowerCase().toCharArray();
+            alphabet = ALPHABET_LOWER;
+            lookup = LOOKUP_LOWER;
         } else {
-            ALPHABET = BASE32_HEX_ALPHABET.toCharArray();
+            alphabet = ALPHABET_UPPER;
+            lookup = LOOKUP_UPPER;
         }
-        initLookup();
         this.padding = padding;
     }
 
@@ -31,15 +47,8 @@ public final class Base32Hex implements Encoder {
         return new Base32Hex(this.lowerCase, false);
     }
 
-    private void initLookup() {
-        Arrays.fill(LOOKUP, -1);
-        for (int i = 0; i < BASE32_HEX_ALPHABET.length(); i++) {
-            LOOKUP[ALPHABET[i]] = i;
-        }
-    }
-
     public String encode(byte[] data) {
-        final char[] alphabet = ALPHABET;
+        final char[] alphabet = this.alphabet;
         StringBuilder encoded = new StringBuilder((data.length * 8 + 4) / 5);
         int buffer = 0, bitsLeft = 0;
         for (int i = 0, dataLength = data.length; i < dataLength; i++) {
@@ -68,7 +77,7 @@ public final class Base32Hex implements Encoder {
     }
 
     public byte[] decode(String base32Hex) {
-        final int[] lookup = LOOKUP;
+        final int[] lookup = this.lookup;
         int paddingCount = 0;
         if (padding) {
             for (int i = base32Hex.length() - 1; i >= 0 && base32Hex.charAt(i) == '='; i--) {
