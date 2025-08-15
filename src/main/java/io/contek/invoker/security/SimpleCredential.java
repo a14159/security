@@ -45,6 +45,11 @@ public final class SimpleCredential implements ICredential {
 
   @Override
   public String sign(String payload) {
-    return encoding.encode(mac.doFinal(payload.getBytes(UTF_8)));
+      final byte[] payloadBytes = payload.getBytes(UTF_8);
+      byte[] macBytes;
+      synchronized (mac) {
+          macBytes = mac.doFinal(payloadBytes);
+      }
+      return encoding.encode(macBytes);
   }
 }
