@@ -4,13 +4,9 @@ public class EscaperURLPath implements Escaper {
 
     public static final String SPECIAL_CHARS = " %$&+,/:;=?@<>#%";
 
-    private final String[] encodeTable = new String[256];
+    private static final String[] encodeTable = new String[256];
 
-    public EscaperURLPath() {
-        initEncodeTable();
-    }
-
-    private void initEncodeTable() {
+    static {
         for (char ch = 0; ch < 256; ch++) {
             if (ch > 128 || SPECIAL_CHARS.indexOf(ch) >= 0) {
                 encodeTable[ch] = "%" + toHex(ch / 16) + toHex(ch % 16);
@@ -25,12 +21,13 @@ public class EscaperURLPath implements Escaper {
     @Override
     public String escape(String input) {
 //        return URLEncoder.encode(arg, StandardCharsets.UTF_8); // this encored uses "+" for spaces
-        StringBuilder resultStr = new StringBuilder(input.length() + 4);
-        char[] charArray = input.toCharArray();
+        final StringBuilder resultStr = new StringBuilder(3 * input.length() / 2);
         // noinspection all
-        for (int i = 0, charArrayLength = charArray.length; i < charArrayLength; i++) {
-            char ch = charArray[i];
-            String encodedCh = encodeTable[ch];
+        final String[] encodeTableCopy = encodeTable;
+        // noinspection all
+        for (int i = 0, inputLength = input.length(); i < inputLength; i++) {
+            char ch = input.charAt(i);
+            String encodedCh = encodeTableCopy[ch];
             if (encodedCh != null) {
                 resultStr.append(encodedCh);
             } else {
