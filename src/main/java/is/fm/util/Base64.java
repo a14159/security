@@ -20,7 +20,11 @@ public class Base64 implements Encoder {
             }
         } else {
             delegateDecoder = java.util.Base64.getDecoder();
-            delegateEncoder = java.util.Base64.getEncoder();
+            if (padding) {
+                delegateEncoder = java.util.Base64.getEncoder();
+            } else {
+                delegateEncoder = java.util.Base64.getEncoder().withoutPadding();
+            }
         }
     }
 

@@ -21,11 +21,20 @@ public class EscaperURLPath implements Escaper {
     @Override
     public String escape(String input) {
 //        return URLEncoder.encode(arg, StandardCharsets.UTF_8); // this encored uses "+" for spaces
-        final StringBuilder resultStr = new StringBuilder(3 * input.length() / 2);
-        // noinspection all
         final String[] encodeTableCopy = encodeTable;
-        // noinspection all
-        for (int i = 0, inputLength = input.length(); i < inputLength; i++) {
+        final int inputLength = input.length();
+        int firstEscapeIndex = 0;
+        while (firstEscapeIndex < inputLength
+                && encodeTableCopy[input.charAt(firstEscapeIndex)] == null) {
+            firstEscapeIndex++;
+        }
+        if (firstEscapeIndex == inputLength) {
+            return input;
+        }
+
+        final StringBuilder resultStr = new StringBuilder(3 * inputLength / 2);
+        resultStr.append(input, 0, firstEscapeIndex);
+        for (int i = firstEscapeIndex; i < inputLength; i++) {
             char ch = input.charAt(i);
             String encodedCh = encodeTableCopy[ch];
             if (encodedCh != null) {
