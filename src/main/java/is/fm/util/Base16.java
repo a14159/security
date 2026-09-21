@@ -1,6 +1,7 @@
 package is.fm.util;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public final class Base16 implements Encoder {
 
@@ -8,7 +9,7 @@ public final class Base16 implements Encoder {
      * The Base16 alphabet according to Section 8 of RFC 4648.
      */
     private static final char[] BASE16_ALPHABET_UPPER = "0123456789ABCDEF".toCharArray();
-    private static final char[] BASE16_ALPHABET_LOWER = "0123456789ABCDEF".toLowerCase().toCharArray();
+    private static final char[] BASE16_ALPHABET_LOWER = "0123456789ABCDEF".toLowerCase(Locale.ROOT).toCharArray();
     private static final byte[] LOOKUP_UPPER = new byte[128];
     private static final byte[] LOOKUP_LOWER = new byte[128];
     static {

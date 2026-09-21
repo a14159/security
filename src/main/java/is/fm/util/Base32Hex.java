@@ -1,13 +1,14 @@
 package is.fm.util;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public final class Base32Hex implements Encoder {
 
     private static final String BASE32_HEX_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
 
     private static final char[] ALPHABET_UPPER = BASE32_HEX_ALPHABET.toCharArray();
-    private static final char[] ALPHABET_LOWER = BASE32_HEX_ALPHABET.toLowerCase().toCharArray();
+    private static final char[] ALPHABET_LOWER = BASE32_HEX_ALPHABET.toLowerCase(Locale.ROOT).toCharArray();
 
     private static final int[] LOOKUP_UPPER = new int[256];
     private static final int[] LOOKUP_LOWER = new int[256];

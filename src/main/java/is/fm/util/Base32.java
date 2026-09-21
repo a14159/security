@@ -1,11 +1,12 @@
 package is.fm.util;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public final class Base32 implements Encoder {
 
     private static final char[] BASE32_ALPHABET_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
-    private static final char[] BASE32_ALPHABET_LOWER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toLowerCase().toCharArray();
+    private static final char[] BASE32_ALPHABET_LOWER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toLowerCase(Locale.ROOT).toCharArray();
 
     private static final  int[] LOOKUP_UPPER = new int[256];
     private static final  int[] LOOKUP_LOWER = new int[256];
