@@ -31,7 +31,7 @@ public class Base64 implements Encoder {
     }
 
     public Encoder lowerCase() {
-        return this;
+        throw new UnsupportedOperationException("Base64 is case-sensitive and does not support lower-case encoding.");
     }
 
     public Encoder omitPadding() {
@@ -46,6 +46,9 @@ public class Base64 implements Encoder {
     }
 
     public byte[] decode(String base64) {
+        if (!padding && base64.indexOf('=') >= 0) {
+            throw new IllegalArgumentException("Base64 padding is not enabled for this encoding.");
+        }
         return delegateDecoder.decode(base64);
     }
 }
