@@ -1,5 +1,7 @@
 package is.fm.util;
 
+import java.nio.charset.StandardCharsets;
+
 public class Base64 implements Encoder {
 
     private final java.util.Base64.Decoder delegateDecoder;
@@ -40,7 +42,7 @@ public class Base64 implements Encoder {
     }
 
     public String encode(byte[] base64) {
-        return new String(delegateEncoder.encode(base64));
+        return new String(delegateEncoder.encode(base64), StandardCharsets.ISO_8859_1);
     }
 
     public byte[] decode(String base64) {

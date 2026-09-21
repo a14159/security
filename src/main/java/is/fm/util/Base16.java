@@ -76,11 +76,11 @@ public final class Base16 implements Encoder {
     public String encode(byte[] bytes) {
         final char[] alphabet = this.alphabet;
         final int size = bytes.length;
-        byte[] encoded = new byte[size * 2];
+        char[] encoded = new char[size * 2];
         int caIdx = 0;
         for (int baIdx = 0; baIdx < size; baIdx++) {
-            encoded[caIdx++] = (byte) alphabet[((bytes[baIdx] >> 4) & 0x0F)];
-            encoded[caIdx++] = (byte) alphabet[((bytes[baIdx]) & 0x0F)];
+            encoded[caIdx++] = alphabet[((bytes[baIdx] >> 4) & 0x0F)];
+            encoded[caIdx++] = alphabet[((bytes[baIdx]) & 0x0F)];
         }
         return new String(encoded);
     }
