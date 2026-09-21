@@ -75,13 +75,16 @@ public final class Base32 implements Encoder {
     public byte[] decode(String base32) {
         final int[] lookup = this.lookup;
         int paddingCount = 0;
-        for (int i = base32.length() - 1; base32.charAt(i) == '='; i--) {
+        for (int i = base32.length() - 1; i >= 0 && base32.charAt(i) == '='; i--) {
             paddingCount++;
         }
         byte[] decoded = new byte[(base32.length()- paddingCount) * 5 / 8];
         int buffer = 0, bitsLeft = 0, index = 0;
         for (char c : base32.toCharArray()) {
             if (c == '=') break;
+            if (c >= lookup.length || lookup[c] == -1) {
+                throw new IllegalArgumentException("Invalid character in Base32 encoded string.");
+            }
             buffer <<= 5;
             buffer |= lookup[c];
             bitsLeft += 5;

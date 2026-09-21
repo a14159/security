@@ -9,8 +9,8 @@ public final class Base32Hex implements Encoder {
     private static final char[] ALPHABET_UPPER = BASE32_HEX_ALPHABET.toCharArray();
     private static final char[] ALPHABET_LOWER = BASE32_HEX_ALPHABET.toLowerCase().toCharArray();
 
-    private static final int[] LOOKUP_UPPER = new int[128];
-    private static final int[] LOOKUP_LOWER = new int[128];
+    private static final int[] LOOKUP_UPPER = new int[256];
+    private static final int[] LOOKUP_LOWER = new int[256];
 
     static {
         Arrays.fill(LOOKUP_UPPER, -1);
@@ -92,7 +92,7 @@ public final class Base32Hex implements Encoder {
             if (c == '=') {
                 break;
             }
-            if (lookup[c] == -1) {
+            if (c >= lookup.length || lookup[c] == -1) {
                 throw new IllegalArgumentException("Invalid character in Base32 Hex encoded string.");
             }
             buffer <<= 5;

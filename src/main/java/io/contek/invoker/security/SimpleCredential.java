@@ -2,13 +2,13 @@ package io.contek.invoker.security;
 
 import is.fm.util.Encoder;
 
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 import javax.crypto.Mac;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-@Immutable
+@ThreadSafe
 public final class SimpleCredential implements ICredential {
 
   private final ApiKey apiKey;

@@ -47,12 +47,26 @@ public final class Base16 implements Encoder {
         final byte[] lookup = this.lookup;
         char[] encoded = base16.toCharArray();
         final int size = encoded.length;
+        if ((size & 1) != 0) {
+            throw new IllegalArgumentException("Base16 input must have an even length: " + size);
+        }
         byte[] decoded = new byte[size / 2];
         int baIdx = 0;
         for (int caIdx = 0; caIdx < size;) {
-            byte c0 = lookup[encoded[caIdx++]];
-            byte c1 = lookup[encoded[caIdx++]];
+            int c0 = decodeChar(lookup, encoded[caIdx++]);
+            int c1 = decodeChar(lookup, encoded[caIdx++]);
             decoded[baIdx++] = (byte) ((c0 << 4) | c1);
+        }
+        return decoded;
+    }
+
+    private static int decodeChar(byte[] lookup, char c) {
+        if (c >= lookup.length) {
+            throw new IllegalArgumentException("Illegal Base16 character: " + c);
+        }
+        int decoded = lookup[c] & 0xFF;
+        if (decoded == 0xFF) {
+            throw new IllegalArgumentException("Illegal Base16 character: " + c);
         }
         return decoded;
     }
