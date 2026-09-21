@@ -15,6 +15,8 @@ public final class Base32 implements Encoder {
         Arrays.fill(LOOKUP_LOWER, -1);
         for (int i = 0; i < BASE32_ALPHABET_UPPER.length; i++) {
             LOOKUP_UPPER[BASE32_ALPHABET_UPPER[i]] = i;
+            LOOKUP_UPPER[BASE32_ALPHABET_LOWER[i]] = i;
+            LOOKUP_LOWER[BASE32_ALPHABET_UPPER[i]] = i;
             LOOKUP_LOWER[BASE32_ALPHABET_LOWER[i]] = i;
         }
     }

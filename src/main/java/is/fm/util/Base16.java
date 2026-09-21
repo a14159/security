@@ -17,6 +17,8 @@ public final class Base16 implements Encoder {
         Arrays.fill(LOOKUP_LOWER, (byte) 0xFF);
         for (int i = 0; i < BASE16_ALPHABET_UPPER.length; i++) {
             LOOKUP_UPPER[BASE16_ALPHABET_UPPER[i]] = (byte) i;
+            LOOKUP_UPPER[BASE16_ALPHABET_LOWER[i]] = (byte) i;
+            LOOKUP_LOWER[BASE16_ALPHABET_UPPER[i]] = (byte) i;
             LOOKUP_LOWER[BASE16_ALPHABET_LOWER[i]] = (byte) i;
         }
     }
