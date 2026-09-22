@@ -48,16 +48,15 @@ public final class Base16 implements Encoder {
     @Override
     public byte[] decode(String base16) {
         final byte[] lookup = this.lookup;
-        char[] encoded = base16.toCharArray();
-        final int size = encoded.length;
+        final int size = base16.length();
         if ((size & 1) != 0) {
             throw new IllegalArgumentException("Base16 input must have an even length: " + size);
         }
         byte[] decoded = new byte[size / 2];
         int baIdx = 0;
         for (int caIdx = 0; caIdx < size;) {
-            int c0 = decodeChar(lookup, encoded[caIdx++]);
-            int c1 = decodeChar(lookup, encoded[caIdx++]);
+            int c0 = decodeChar(lookup, base16.charAt(caIdx++));
+            int c1 = decodeChar(lookup, base16.charAt(caIdx++));
             decoded[baIdx++] = (byte) ((c0 << 4) | c1);
         }
         return decoded;

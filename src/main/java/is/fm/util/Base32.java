@@ -83,7 +83,8 @@ public final class Base32 implements Encoder {
         }
         byte[] decoded = new byte[(base32.length()- paddingCount) * 5 / 8];
         int buffer = 0, bitsLeft = 0, index = 0;
-        for (char c : base32.toCharArray()) {
+        for (int ci = 0, len = base32.length(); ci < len; ci++) {
+            char c = base32.charAt(ci);
             if (c == '=') break;
             if (c >= lookup.length || lookup[c] == -1) {
                 throw new IllegalArgumentException("Invalid character in Base32 encoded string.");
