@@ -1,8 +1,10 @@
 package is.fm.util;
 
+import javax.annotation.concurrent.Immutable;
 import java.nio.charset.StandardCharsets;
 
-public class Base64 implements Encoder {
+@Immutable
+public final class Base64 implements Encoder {
 
     private final java.util.Base64.Decoder delegateDecoder;
     private final java.util.Base64.Encoder delegateEncoder;
